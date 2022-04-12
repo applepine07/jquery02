@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h3 id="item">品名啦啦啦click由黑轉紅</h3>
+                <p id="price">這裡顯示價格</p>
+                <p id="mouseenterout">enterout由黑轉紅</p>
+                <form action="" id="firstform">
+                    <label for="count">數量</label>
+                    <input type="number" name="count" id="count"><br>
+                    <label for="name">名字</label>
+                    <input type="text" name="name" id="name"><br>
+                    <label for="address">地址</label>
+                    <input type="text" name="address" id="address"><br>
+                    <input type="hidden" name="priceHidden" id="priceHidden" value="250"><br>
+                    <input type="submit" value="提交">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <form action="" id="myForm">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" name="myText" id="">
+                    <input type="text" name="myText2" id="">
+                    <input type="text" name="myText3" id="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit">送出啦</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            // append prepend
+            // after before
+
+            function discount() {
+                myNumberInput = parseInt($(this).val());
+                priceHidden = parseInt($("#priceHidden").val());
+                total = myNumberInput * priceHidden;
+                console.log("totals", total);
+            }
+
+            $('#item').click(function () {
+                $(this).css("background-color", "red");
+            });
+            $('h3').on('click', function () {
+                $(this).css("color", "blue");
+                $(this).text("新年優惠價 特價100元");
+                $("#priceHidden").val('100');
+                count = $('#hiddenPrice').val();
+                if (!isNaN(count)) {
+                    discount();
+                }
+            });
+
+
+            $('#mouseenterout').on('mouseenter', function () {
+                $(this).css("color", "red");
+            });
+            $('#mouseenterout').on('mouseout', function () {
+                $(this).css("color", "black");
+            });
+
+
+            $('#count').focus();
+            // 上面一行或寫成 $('input').first().focus();
+            // change
+            $('#count').on('change', function () {
+                mycount = parseInt($(this).val());
+                priceHidden = parseInt($("#priceHidden").val());
+                total = mycount * priceHidden;
+                console.log("total", total);
+            });
+
+
+
+            // TR submit事件
+            $("#myForm").on('submit', function (e) {
+                e.preventDefault();
+                console.log('hello myForm');
+                // eq(2)是第3個喔，012
+                value = $(this).find("input").eq(2).val();
+                console.log("value", value)
+            })
+
+            // submit事件
+            $('#firstform').submit(function (e) {
+                e.preventDefault();
+                // ↑這個要加，不然會閃一下而已，不知為何
+                // console.log("click");
+                count = $('#count').val();
+                name1 = $('#name').val();
+                address = $('#address').val();
+                console.log(count);
+                console.log(name1);
+                console.log(address);
+
+            });
+        });
+    </script>
+</body>
+
+</html>

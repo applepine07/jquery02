@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+</head>
+
+<body>
+    <h2>onclick focus mouseenter mouseout mouseup hover</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="dblclick">dbclick Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="oneP">one event Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="mouseenter">event mouseEnter Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="mouseout">event mouseout Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="mouseEvent">event mouse Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="mousecombo">event mouse combo Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+                <p id="hover">hover event hoverenter hoverout Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, at!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <input type="text" name="" id="focused">
+        </div>
+        <div class="col-12">
+            <input type="text" name="" id="focus1">
+        </div>
+        <div class="col-12">
+            <input type="text" name="" id="focus2">
+        </div>
+        <div class="col-12">
+            <input type="text" name="" id="focus3">
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            // 頁面一ready，就會在focus2有游標，(或可用在掃barcode會自動對焦的應用上)
+            // 如果同時2個focus，2個都會執行，最後顯示最後的focus
+            $('#focus2').focus();
+            $('input').last().focus();
+
+
+            // 之前講button的click
+            $('button').click(function () {
+
+            });
+            // 這次講p標籤的click事件
+            //on(  '事件click submit之類'  ,  function(){}  )
+            $('p').on('click', function () {
+                console.log('p click');
+            });
+            $('#dblclick').on('dblclick', function () {
+                console.log('pp click');
+                // 點2下後，就移除上面p tag被設定的單點事件
+                $('p').off('click');
+            });
+            // 對焦事件
+            $('#focused').on('focus', function () {
+                console.log('focus');
+            });
+            // 一次性
+            $('#oneP').one('click', function () {
+                console.log('one click');
+            });
+            // mouse enter滑鼠移入事件，滑鼠移入就會執行
+            $('#mouseenter').on('mouseenter', function () {
+                console.log('mouse enter');
+            });
+
+            // mouse 滑鼠移入滑出在同一行
+            $('#mouseEvent').on('mouseenter', function () {
+                console.log('進');
+            });
+            $('#mouseEvent').on('mouseout', function () {
+                console.log('出');
+            });
+            // 滑鼠放開才會作用，這個比較好用
+            $('#mouseEvent').on('mouseup', function () {
+                console.log('滑鼠放開才會作用，這個比較好用');
+            });
+
+            $('#mousecombo').on({
+                mouseenter: function () {
+                    $(this).css("background-color", "lightgray");
+                    console.log('mouseenter');
+                    // off全部事件
+                    // $('#mousecombo').off();
+                    // off單一事件，加這行滑鼠移入一次後，之就不會再有移入效果，只剩以下2個效果
+                    $('#mousecombo').off('mouseenter');
+                },
+                mouseout: function () {
+                    $(this).css("background-color", "lightblue");
+                    console.log('mouseout');
+                    // 大括號後的逗號很重要
+                },
+                mouseup: function () {
+                    $(this).css("background-color", "yellow");
+                    console.log('mouseup');
+                }
+            });
+
+            // 第二個有簡化 → hover(fun1,fun2)
+            $('#hover').hover(function(){
+                $(this).css("background-color", "red");
+
+                console.log('hoverEnter');
+            },function(){
+                $(this).css("background-color", "green");
+                console.log('hoverOut');
+            }
+            );
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
